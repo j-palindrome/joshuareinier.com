@@ -1,4 +1,4 @@
-app = "joshuareinier-2023-08-ee51"
+app = "joshuareinier-com"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = [ ]

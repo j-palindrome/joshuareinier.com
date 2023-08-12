@@ -1,5 +1,5 @@
 {
-  "name": "joshuareinier-2023-08-ee51",
+  "name": "joshuareinier-com",
   "private": true,
   "sideEffects": false,
   "scripts": {
@@ -74,7 +74,7 @@
     "vitest": "^0.32.2"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=20"
   },
   "prisma": {
     "seed": "ts-node --require tsconfig-paths/register prisma/seed.ts"
