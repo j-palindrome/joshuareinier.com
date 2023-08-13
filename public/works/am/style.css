@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+  position: absolute;
+  color: var(--foreground);
+}
+
+:root {
+  --font: "Times New Roman";
+  --background: #000;
+  --foreground: ghostwhite;
+  --border: grey;
+  --hover: #333;
+}
+
+body {
+  background: #000;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  font-size: 24px;
+}
+
+pre {
+  margin: 0;
+  font: var(--font);
+  color: var(--foreground);
+  position: fixed;
+}
+
+button {
+  font: var(--font);
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+
+button:hover {
+  background: var(--hover);
+}
+
+#landing {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background: var(--background);
+  z-index: 1;
+}
