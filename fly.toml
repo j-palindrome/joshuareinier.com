@@ -46,6 +46,6 @@ script_checks = [ ]
   method = "get"
   path = "/healthcheck"
   protocol = "http"
-  timeout = "2s"
+  timeout = "20s"
   tls_skip_verify = false
   headers = { }
