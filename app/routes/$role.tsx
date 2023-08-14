@@ -1,5 +1,4 @@
-import { NavLink, Outlet, useParams, useSearchParams } from '@remix-run/react'
-import { cloneElement, useRef } from 'react'
+import { Outlet, useParams, useSearchParams } from '@remix-run/react'
 import Section from '~/components/Section'
 import Tag from '~/components/Tag'
 import WorksDisplay from '~/components/WorksDisplay'
@@ -15,8 +14,6 @@ export default function Role() {
     search.set('filter', newFilter)
     setSearch(search)
   }
-
-  const frame = useRef<HTMLDivElement>(null)
 
   const sections: Record<RoleType, () => JSX.Element> = {
     artist: () => (

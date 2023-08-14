@@ -1,12 +1,10 @@
 import { Link } from '@remix-run/react'
-import { cloneElement, useLayoutEffect } from 'react'
-import { Role, Work } from '~/models/works'
 
 export default function WorkDisplay({
   work,
   to,
 }: {
-  work: Work<Role>
+  work: Work<RoleType>
   to: string
 }) {
   return (

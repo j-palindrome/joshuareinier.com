@@ -230,7 +230,9 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       route: 'demons-of-analogy',
       filter: 'writing',
       subtitle: 'The Encounter Between Music and Language After Mallarmé',
-      background: <img src={images.demonsOfAnalogyCover} />,
+      background: (
+        <img alt='demons of analogy' src={images.demonsOfAnalogyCover} />
+      ),
       description: (
         <p>
           <i>Demons of Analogy</i> is my undergraduate Honors thesis, and was
@@ -251,7 +253,7 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       route: 'ear-co',
       filter: 'teaching',
       subtitle: 'Eavesdropping, Surveillance and the Poetics of Information',
-      background: <img src={images.earCoCover} />,
+      background: <img alt='earCo' src={images.earCoCover} />,
       description: (
         <p>
           The ownership of one's self and body in the present age is under
@@ -272,7 +274,7 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       route: 'cyborg-co',
       filter: 'teaching',
       subtitle: 'Posthumanism, Selves, & the Anthropocene',
-      background: <img src={images.cyborgCoCover} />,
+      background: <img alt='cyborgCo' src={images.cyborgCoCover} />,
       description: (
         <p>
           A human. A post. A duck-sized horse. Is this WestWorld? Maybe. In
@@ -300,7 +302,9 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       route: 'reclaiming-space',
       filter: 'writing',
       subtitle: 'Feminist Psychosis in Cixous & Clément, Gilman, & Ferrante',
-      background: <img src={images.reclaimingSpaceCover} />,
+      background: (
+        <img alt='reclaiming space' src={images.reclaimingSpaceCover} />
+      ),
       description: (
         <p>
           In this paper, I explore the concept of “hysteria” as it is reclaimed
@@ -338,7 +342,7 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       route: 'finnegans-wake',
       filter: 'teaching',
       subtitle: 'Reading Through the Wake',
-      background: <img src={images.finnegansWakeCover} />,
+      background: <img alt='finnegans wake' src={images.finnegansWakeCover} />,
       description: (
         <p>
           This course is an intensive reading of James Joyce’s final novel
@@ -369,7 +373,7 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       route: 'time-ruler',
       filter: 'web',
       subtitle: 'Task management and time-blocking for Obsidian',
-      background: <img src={images.timeRulerCover}></img>,
+      background: <img alt='time ruler' src={images.timeRulerCover}></img>,
       content: (
         <ViewButton href='https://github.com/joshuatazrein/obsidian-time-ruler'>
           view on GitHub
@@ -444,7 +448,7 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       route: 'riverbank',
       filter: 'web',
       subtitle: 'Google Tasks & Calendar',
-      background: <img src={images.riverbankCover} />,
+      background: <img alt='riverbank' src={images.riverbankCover} />,
       description: (
         <p>
           RiverBank is a full-stack web application providing a better user
@@ -462,7 +466,7 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       route: 'notice',
       filter: 'web',
       subtitle: 'Notion Overviews',
-      background: <img src={images.noticeCover} />,
+      background: <img alt='notice for notion' src={images.noticeCover} />,
       description: (
         <p>
           Overviews of your Notion databases as tasks, flashcards, or graphs.

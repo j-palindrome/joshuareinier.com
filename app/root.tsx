@@ -1,5 +1,4 @@
-import type { LinksFunction, LoaderArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { LinksFunction } from '@remix-run/node'
 import {
   Link,
   Links,
@@ -9,11 +8,10 @@ import {
   Scripts,
   ScrollRestoration,
   useLocation,
-  useParams,
 } from '@remix-run/react'
 import stylesheet from '~/tailwind.css'
-import Tag from './components/Tag'
 import Section from './components/Section'
+import Tag from './components/Tag'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },

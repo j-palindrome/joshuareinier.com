@@ -1,16 +1,10 @@
-import Section from '~/components/Section'
-import Subsection from '~/components/Subsection'
-import ViewButton from '~/components/ViewButton'
 import parse from 'style-to-object'
-import img from './assets/img'
-import ImageGrid from '~/components/ImageGrid'
 import Card from '~/components/Card'
+import ImageGrid from '~/components/ImageGrid'
+import Section from '~/components/Section'
+import img from './assets/img'
 
 export default function DesignStory() {
-  // const project = core.getProject('Designer demo')
-  // const sheet = project.sheet('First Scene')
-  // const box = sheet.object('Box', { x: 0, y: 0 })
-
   return (
     <div className='bg-white p-4 text-black child:max-w-none'>
       <div className='w-full text-center'>

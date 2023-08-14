@@ -1,16 +1,17 @@
-import type { MetaFunction } from '@remix-run/node'
+import type { V2_MetaFunction } from '@remix-run/node'
 import { Outlet } from '@remix-run/react'
 import Section from '~/components/Section'
-import { images } from '../assets/assets'
 import ViewButton from '~/components/ViewButton'
+import { images } from '../assets/assets'
 
-export const meta: MetaFunction = () => [{ title: 'Home' }]
+export const meta: V2_MetaFunction = () => [{ title: 'Home' }]
 
 export default function Index() {
   return (
     <>
       <Section className='mx-auto max-w-4xl'>
         <img
+          alt='joshua tazman reinier'
           src={images.headshot}
           className='mx-auto aspect-square w-[300px] self-center rounded-lg sm:float-right sm:m-4'
         ></img>
