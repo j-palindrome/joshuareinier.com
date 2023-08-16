@@ -49,7 +49,11 @@
     "style-to-object": "^0.4.2",
     "tiny-invariant": "^1.3.1",
     "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.34.1"
+    "vitest": "^0.34.1",
+    "@pixi/react": "^7.1.0",
+    "mathjs": "^11.9.1",
+    "open-simplex-noise": "^2.5.0",
+    "pixi.js": "^7.2.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",

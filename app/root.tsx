@@ -17,7 +17,7 @@ export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ]
 
-const subSites = /^\/(portfolio|design-bio)/
+const subSites = /^\/(portfolio|design-bio|works)/
 export default function App() {
   const location = useLocation()
   const noRoot = subSites.test(location.pathname)
