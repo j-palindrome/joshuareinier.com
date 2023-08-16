@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import useStateRef from 'react-usestateref'
 
 export const useDimensions = () => {
   const [{ w, h }, setDimensions] = useState({

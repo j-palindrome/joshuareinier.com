@@ -1,4 +1,3 @@
-import { readFileSync, writeFile, writeFileSync } from 'fs'
 import _ from 'lodash'
 import data from './data.json'
 

@@ -135,7 +135,7 @@ export async function loader({ params }: LoaderArgs) {
 }
 
 function ClientIndex() {
-  const [data, setData] = useState<{ event: 'start' | 'explode' }>({
+  const [data] = useState<{ event: 'start' | 'explode' }>({
     event: !document.referrer ? 'start' : 'explode',
   })
 

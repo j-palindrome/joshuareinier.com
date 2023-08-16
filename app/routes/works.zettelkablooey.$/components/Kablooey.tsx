@@ -1,5 +1,5 @@
-import { useSprings, animated } from '@react-spring/web'
-import { Link, Outlet, useLoaderData, useLocation } from '@remix-run/react'
+import { animated, useSprings } from '@react-spring/web'
+import { Link, Outlet, useLocation } from '@remix-run/react'
 import _ from 'lodash'
 import { Vector } from 'matter-js'
 import { useMemo, useState } from 'react'
@@ -8,23 +8,16 @@ import { useFlicker, useFlickers } from '../services/animation'
 import { useDimensions, useMousePosition } from '../services/dom.client'
 import { lerp } from '../services/math'
 import { convertTextToLines } from '../services/parser'
-import { useFakeStream } from '../services/text.client'
-import LoopedGraphics from './LoopedGraphics'
-import { Stage } from '@pixi/react'
-import { BlurFilter } from 'pixi.js'
-import { makeNoise3D } from 'open-simplex-noise'
 import MorphSpan from './MorphSpan'
 
 export default function Kablooey({
   title,
   children,
   gptText,
-  showEffect = false,
 }: {
   title: string
   children: string
   gptText: string
-  showEffect?: boolean
 }) {
   const { w, h } = useDimensions()
 
@@ -82,19 +75,6 @@ export default function Kablooey({
   })
 
   const { pathname } = useLocation()
-
-  const noise3D = useMemo(() => makeNoise3D(Date.now()), [showEffect])
-  const blurFilter = useMemo(() => new BlurFilter(5), [showEffect])
-
-  const randomGrid = useMemo(() => {
-    const gridPlaces: { x: number; y: number }[] = []
-    for (let x = 0; x <= w; x += _.random(50, 100)) {
-      for (let y = 0; y <= h; y += _.random(50, 100)) {
-        gridPlaces.push({ x, y })
-      }
-    }
-    return gridPlaces
-  }, [])
 
   const links = useMemo(() => {
     const scrambleScenes = _.shuffle(Object.keys(scenes))

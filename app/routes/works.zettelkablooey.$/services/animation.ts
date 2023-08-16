@@ -85,6 +85,7 @@ export const useFlicker = (
   }, [go, el])
 }
 
+/* eslint-disable */
 export const useFlickers = (
   els: Parameters<typeof useFlicker>[0][],
   config:
@@ -110,3 +111,4 @@ export const useFlickers = (
     }
   }
 }
+/* eslint-enable */

@@ -1,12 +1,8 @@
-import { Stage } from '@pixi/react'
 import _ from 'lodash'
-import { makeNoise3D } from 'open-simplex-noise'
-import { BlurFilter } from 'pixi.js'
 import { Fragment, Suspense, cloneElement, useMemo } from 'react'
 import { useDimensions } from '../services/dom.client'
-import LoopedGraphics from './LoopedGraphics'
-import MyLink from './MyLink'
 import MorphSpan from './MorphSpan'
+import MyLink from './MyLink'
 
 export default function GptMesh(props: Parameters<typeof ClientGptMesh>[0]) {
   return (
@@ -49,8 +45,6 @@ function ClientGptMesh({
 
     return formattedGptText
   }, [gptText, children])
-  const noise3D = useMemo(() => makeNoise3D(Date.now()), [])
-  const blurFilter = useMemo(() => new BlurFilter(5), [])
 
   if (!formattedGptText) return <></>
   return (

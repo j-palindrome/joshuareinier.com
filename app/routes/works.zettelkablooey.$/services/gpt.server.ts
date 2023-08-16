@@ -1,20 +1,18 @@
-import { useLoaderData } from '@remix-run/react'
-import { isErrorResponse } from '@remix-run/react/dist/data'
-import { OpenAIApi, Configuration } from 'openai'
 import { readResponse } from './data.server'
 
+/* eslint-disable */
 /**
  * @borrows This only works inside useLoaderData
  * @see useLoaderData
  */
 export const generatePrompt = async (
-  prompt: string,
-  config: Partial<
-    Parameters<InstanceType<typeof OpenAIApi>['createChatCompletion']>[0]
-  > = {
-    temperature: 2,
-    stream: false,
-  }
+  prompt: string
+  // config: Partial<
+  //   Parameters<InstanceType<typeof OpenAIApi>['createChatCompletion']>[0]
+  // > = {
+  //   temperature: 2,
+  //   stream: false,
+  // }
 ) => {
   // const openai = new OpenAIApi(
   //   new Configuration({ apiKey: process.env.GPT_SECRET })
@@ -76,3 +74,4 @@ export const generatePrompt = async (
   //   }
   // })
 }
+/* eslint-enable */

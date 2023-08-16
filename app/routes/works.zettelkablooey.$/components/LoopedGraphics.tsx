@@ -1,8 +1,6 @@
 import { Graphics, useTick } from '@pixi/react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Graphics as PixiGraphics } from 'pixi.js'
-import { useDimensions } from '../services/dom.client'
-import { makeNoise3D } from 'open-simplex-noise'
+import { useCallback, useState } from 'react'
 import invariant from 'tiny-invariant'
 
 export default function LoopedGraphics(props: Parameters<typeof Graphics>[0]) {

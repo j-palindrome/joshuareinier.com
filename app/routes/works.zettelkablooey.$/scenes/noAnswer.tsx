@@ -1,8 +1,4 @@
-import { useLoaderData } from '@remix-run/react'
-import GptMesh from '../components/GptMesh'
 import Kablooey from '../components/Kablooey'
-import Line from '../components/Line'
-import { generatePrompt } from '../services/gpt.server'
 
 export default function NoAnswer({ gptText, showEffect, index }: Props) {
   return (
