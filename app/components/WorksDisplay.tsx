@@ -123,12 +123,8 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
                     lastScroll.current = window.scrollY
                   }}
                 >
-                  <div className='rounded-lg bg-black/50 px-1 text-center font-menu text-xl shadow-lg'>
-                    {title}
-                  </div>
-                  <div className='rounded-lg bg-black/50 px-1 text-center font-menu text-sm text-gray-200 shadow-lg'>
-                    {subtitle}
-                  </div>
+                  <div className='title text-xl'>{title}</div>
+                  <div className='subtitle text-sm'>{subtitle}</div>
                 </Link>
 
                 {cloneElement(background, {

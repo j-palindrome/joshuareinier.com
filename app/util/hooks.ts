@@ -1,49 +1,51 @@
-import _ from "lodash";
-import { useEffect, useRef, useState } from "react";
+import Ammo from 'ammojs3'
+import _ from 'lodash'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import invariant from 'tiny-invariant'
 
 export function useWindow() {
-  const [thisWindow, setWindow] = useState<typeof window>();
+  const [thisWindow, setWindow] = useState<typeof window>()
 
   useEffect(() => {
-    setWindow(window);
-  }, []);
+    setWindow(window)
+  }, [])
 
-  return thisWindow;
+  return thisWindow
 }
 
 export const useDimensions = () => {
   const [{ w, h }, setDimensions] = useState({
     w: window.innerWidth,
     h: window.innerHeight,
-  });
+  })
 
   useEffect(() => {
     const updateSize = () =>
-      setDimensions({ w: window.innerWidth, h: window.innerHeight });
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
+      setDimensions({ w: window.innerWidth, h: window.innerHeight })
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
 
-  return { w, h };
-};
+  return { w, h }
+}
 
 export const useMousePosition = () => {
-  const [mousePos, setMousePos] = useState<[number, number]>([0, 0]);
-  const ready = useRef(true);
+  const [mousePos, setMousePos] = useState<[number, number]>([0, 0])
+  const ready = useRef(true)
   useEffect(() => {
     const updateMousePos = (ev: MouseEvent) => {
-      if (!ready.current) return;
-      ready.current = false;
+      if (!ready.current) return
+      ready.current = false
       requestAnimationFrame(() => {
-        ready.current = true;
-      });
-      setMousePos([ev.clientX, ev.clientY]);
-    };
-    window.addEventListener("mousemove", updateMousePos);
-    return () => window.removeEventListener("mousemove", updateMousePos);
-  });
-  return mousePos;
-};
+        ready.current = true
+      })
+      setMousePos([ev.clientX, ev.clientY])
+    }
+    window.addEventListener('mousemove', updateMousePos)
+    return () => window.removeEventListener('mousemove', updateMousePos)
+  })
+  return mousePos
+}
 
 export const lerp = (
   a: number,
@@ -51,8 +53,65 @@ export const lerp = (
   progress: number,
   config = { clamp: true }
 ) => {
-  const value = a + (b - a) * progress;
+  const value = a + (b - a) * progress
   return config.clamp
     ? _.clamp(value, ...([a, b].sort() as [number, number]))
-    : value;
-};
+    : value
+}
+
+export const useAnimationLoop = (
+  animation: (timeDelta: number) => void,
+  start: boolean = true
+) => {
+  const interval = useRef<number>(0)
+  const thisTime = useRef<number>(Date.now())
+
+  useEffect(() => {
+    const animationFrame: FrameRequestCallback = (time) => {
+      const timeDelta = time - thisTime.current
+      thisTime.current = time
+      animation(timeDelta)
+      if (start) {
+        requestAnimationFrame(animationFrame)
+      }
+    }
+    if (start) {
+      interval.current = requestAnimationFrame(animationFrame)
+    }
+
+    return () => {
+      cancelAnimationFrame(interval.current)
+    }
+  }, [start])
+}
+
+export const useAmmo = <T>(
+  setup: (world: Ammo.btDiscreteDynamicsWorld, ammo: typeof Ammo) => void,
+  simulation: (world: Ammo.btDiscreteDynamicsWorld, ammo: typeof Ammo) => void
+) => {
+  const currentFrame = useRef<number>(0)
+  useEffect(() => {
+    Ammo().then((Ammo) => {
+      const collisionConfiguration = new Ammo.btDefaultCollisionConfiguration()
+      const dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration)
+      const overlappingPairCache = new Ammo.btBroadphaseInterface()
+      const solver = new Ammo.btSequentialImpulseConstraintSolver()
+      const world = new Ammo.btDiscreteDynamicsWorld(
+        dispatcher,
+        overlappingPairCache,
+        solver,
+        collisionConfiguration
+      )
+      setup(world, Ammo)
+      const step = () => {
+        world.stepSimulation(1)
+        simulation(world, Ammo)
+        currentFrame.current = requestAnimationFrame(step)
+      }
+      currentFrame.current = requestAnimationFrame(step)
+    })
+    return () => {
+      currentFrame.current && cancelAnimationFrame(currentFrame.current)
+    }
+  }, [])
+}

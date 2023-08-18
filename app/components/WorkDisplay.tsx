@@ -8,21 +8,29 @@ export default function WorkDisplay({
   to: string
 }) {
   return (
-    <div className='fixed left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-black/50 p-8 backdrop-blur-sm'>
-      <Link to={to} className='absolute left-0 top-0 -z-10 h-full w-full'>
-        {/* {cloneElement(work.background, {
-          muted: true,
-          className:
-            "object-cover w-full h-full absolute top-0 left-0 -z-10 grayscale",
-        })} */}
+    <div className='floater'>
+      <Link
+        to={to}
+        className='absolute left-0 top-0 -z-10 h-full w-full'
+      ></Link>
+      <Link
+        to={to}
+        className='absolute right-0 top-0 m-2 rounded-lg bg-slate-700 p-2 font-mono'
+      >
+        X
       </Link>
-      <div className='relative max-h-full max-w-4xl cursor-default overflow-y-auto rounded-lg border border-gray-400 bg-black/20 p-4 backdrop-blur-lg'>
-        <div className='sticky top-4 z-10 mb-8 text-center text-2xl font-bold drop-shadow-text'>
-          {work.title}
+      <div className='floater-overlay'>
+        <div className='relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden'>
+          <div className='absolute left-0 top-0 -z-10 flex h-full w-full flex-col items-center justify-center'>
+            <div className='object-cover'>{work.background}</div>
+          </div>
+          <h2 className='title text-4xl'>{work.title}</h2>
+          <h3 className='subtitle text-2xl'>{work.subtitle}</h3>
         </div>
-        <div className='text-center'>{work.subtitle}</div>
-        <div className='z-30 my-4'>{work.content}</div>
-        <div className='my-4 space-y-4 text-base'>{work.description}</div>
+        <div className='space-y-4 p-4'>
+          <div className='space-y-4 text-base'>{work.description}</div>
+          <div className='z-30'>{work.content}</div>
+        </div>
       </div>
     </div>
   )

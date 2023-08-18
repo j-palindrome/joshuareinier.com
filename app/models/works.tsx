@@ -413,19 +413,19 @@ export const works: { [T in RoleType]: Work<T>[] } = {
           allowFullScreen
         ></iframe>
       ),
-      background: (
-        <video
-          src={videos.grantsVideoCover}
-          poster={images.grantsVideoPlaceholder}
-        />
-      ),
+      background: <video src={videos.grantsVideoCover} />,
     },
     {
       title: 'TIMARA History',
       route: 'timara-history',
       filter: 'web',
       subtitle: 'Interactive animated timeline',
-      background: <video src={videos.timaraCover}></video>,
+      background: (
+        <video
+          src={videos.timaraCover}
+          poster={images.timaraPlaceholder}
+        ></video>
+      ),
       content: (
         <ViewButton href='https://timara.oberlin.edu/history'>
           View website

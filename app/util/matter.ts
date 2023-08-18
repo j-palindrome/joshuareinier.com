@@ -1,4 +1,5 @@
 import {
+  Bodies,
   Body,
   Constraint,
   Engine,
@@ -17,26 +18,32 @@ export const useMatter = (
   const engine = useRef(Engine.create())
   useEffect(() => {
     World.add(engine.current.world, bodies as Body[])
-    Runner.run(engine.current)
-    Events.on(engine.current, 'beforeUpdate', (ev) =>
+    const runner = Runner.run(engine.current)
+    const eventCallback = (ev: Matter.IEventTimestamped<Engine>) =>
       draw(engine.current.world.bodies, ev.timestamp)
-    )
+    Events.on(engine.current, 'beforeUpdate', eventCallback)
 
     if (setup) setup(engine.current.world, engine.current)
 
     return () => {
       World.clear(engine.current.world, false)
-      Engine.clear(engine.current)
+      Runner.stop(runner)
+      Events.off(engine.current, 'beforeUpdate', eventCallback)
     }
-  }, [])
+  }, [bodies])
 }
 
-export const repulsiveBody = (max_distance: number, scale: number) => {
-  return (thisBody: Body, thatBody: Body) => {
-    const diff = Vector.sub(thatBody.position, thisBody.position)
-    return Vector.mult(
-      Vector.normalise(diff),
-      Math.max(0, max_distance - Vector.magnitude(diff)) * scale
-    )
-  }
+export const repulsion = (
+  thisBody: Vector,
+  thatBody: Vector,
+  maxDistance: number,
+  maxForce: number
+) => {
+  const diff = Vector.sub(thisBody, thatBody)
+  const distance = Math.max(
+    0,
+    (maxDistance - Vector.magnitude(diff)) / maxDistance
+  )
+
+  return Vector.mult(Vector.normalise(diff), distance * maxForce)
 }

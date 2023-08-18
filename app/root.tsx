@@ -12,15 +12,14 @@ import {
 import stylesheet from '~/tailwind.css'
 import Section from './components/Section'
 import Tag from './components/Tag'
+import Header from './components/Header'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ]
 
-const subSites = /^\/(portfolio|design-bio|works)/
 export default function App() {
   const location = useLocation()
-  const noRoot = subSites.test(location.pathname)
 
   return (
     <html lang='en'>
@@ -30,38 +29,9 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body
-        className={`min-h-screen bg-gradient-to-br from-black to-gray-900 font-sans text-white`}
-      >
-        {!noRoot && (
-          <>
-            <Section>
-              <div className='rounded-full border border-transparent px-4 py-1 text-center transition-colors duration-300 hover:border-blue-500/50 hover:bg-gray-700/50'>
-                <Link className='font-serif text-4xl' to='/'>
-                  Joshua Tazman Reinier
-                </Link>
-              </div>
-            </Section>
-            <Section>
-              <div>
-                is an{' '}
-                <Tag to='artist' keepSearch={false}>
-                  artist
-                </Tag>{' '}
-                <Tag to='researcher' keepSearch={false}>
-                  researcher
-                </Tag>{' '}
-                and{' '}
-                <Tag to='designer' keepSearch={false}>
-                  designer
-                </Tag>{' '}
-                exploring the connections between language, noise, and
-                technology.
-              </div>
-            </Section>
-          </>
-        )}
-
+      <body className={`min-h-screen font-sans text-white`}>
+        <div className='fixed left-0 top-0 -z-10 h-screen w-screen bg-gradient-to-br from-black to-gray-800'></div>
+        <Header />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

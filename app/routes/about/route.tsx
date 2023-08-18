@@ -1,15 +1,15 @@
-import type { V2_MetaFunction } from '@remix-run/node'
-import { Outlet } from '@remix-run/react'
-import Section from '~/components/Section'
+import { Link } from '@remix-run/react'
+import { images } from '~/assets/assets'
 import ViewButton from '~/components/ViewButton'
-import { images } from '../assets/assets'
 
-export const meta: V2_MetaFunction = () => [{ title: 'Home' }]
-
-export default function Index() {
+export default function About() {
   return (
-    <>
-      <Section className='mx-auto max-w-4xl'>
+    <div className='floater'>
+      <div
+        className='absolute left-0 top-0 -z-10 h-full w-full cursor-pointer'
+        onClick={() => history.back()}
+      ></div>
+      <div className='floater-overlay p-4'>
         <img
           alt='joshua tazman reinier'
           src={images.headshot}
@@ -17,7 +17,7 @@ export default function Index() {
         ></img>
 
         <p className='text-left'>
-          His work tightropes the boundary between speech and sound, often
+          Reinier's work tightropes the boundary between speech and sound, often
           taking the form of creative/critical hypertexts, performances, and
           installations. Inspired by posthumanist ideas, his work challenges
           anthropocentrism, using technology and multimedia to articulate
@@ -41,8 +41,7 @@ export default function Index() {
           </ViewButton>
           <ViewButton href='assets/doc/joshua-reinier_cv.pdf'>CV</ViewButton>
         </div>
-      </Section>
-      <Outlet />
-    </>
+      </div>
+    </div>
   )
 }
