@@ -1,17 +1,13 @@
 import type { LinksFunction } from '@remix-run/node'
 import {
-  Link,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLocation,
 } from '@remix-run/react'
 import stylesheet from '~/tailwind.css'
-import Section from './components/Section'
-import Tag from './components/Tag'
 import Header from './components/Header'
 
 export const links: LinksFunction = () => [
@@ -19,8 +15,6 @@ export const links: LinksFunction = () => [
 ]
 
 export default function App() {
-  const location = useLocation()
-
   return (
     <html lang='en'>
       <head>

@@ -1,4 +1,3 @@
-import { Link } from '@remix-run/react'
 import { images } from '~/assets/assets'
 import ViewButton from '~/components/ViewButton'
 

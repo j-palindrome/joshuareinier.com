@@ -1,7 +1,6 @@
 import Ammo from 'ammojs3'
 import _ from 'lodash'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import invariant from 'tiny-invariant'
+import { useEffect, useRef, useState } from 'react'
 
 export function useWindow() {
   const [thisWindow, setWindow] = useState<typeof window>()
@@ -85,7 +84,7 @@ export const useAnimationLoop = (
   }, [start])
 }
 
-export const useAmmo = <T>(
+export const useAmmo = (
   setup: (world: Ammo.btDiscreteDynamicsWorld, ammo: typeof Ammo) => void,
   simulation: (world: Ammo.btDiscreteDynamicsWorld, ammo: typeof Ammo) => void
 ) => {

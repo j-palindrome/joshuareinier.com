@@ -7,7 +7,7 @@ import { repulsion, useMatter } from '~/util/matter'
 
 export default function Header() {
   const window = useWindow()
-  const { work, role } = useParams()
+  const { role } = useParams()
   const fullHeight = !role
 
   const mousePosRef = useRef<[number, number]>([0, 0])

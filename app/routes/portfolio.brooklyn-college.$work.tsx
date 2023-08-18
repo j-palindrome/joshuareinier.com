@@ -11,7 +11,7 @@ export default function Works() {
 
   return (
     <>
-      <WorkDisplay work={thisWork} to='/portfolio/brooklyn-college' />
+      <WorkDisplay work={thisWork} />
       <Outlet />
     </>
   )

@@ -12,11 +12,11 @@ import noticeCover from './img/notice_cover.webp'
 import riverbankCover from './img/riverbank_cover.webp'
 import finnegansWakeCover from './img/finnegans-wake_cover.webp'
 import grantsVideoCover from './vid/grants-video.webm'
-// import mmgLogoCover from "./vid/mmg-logo-export.webm";
+import mmgLogoCover from './vid/mmg-logo-export.webm'
 import particularitiesCover from './vid/particularities-cover.webm'
 import headshot from './img/joshua-tazman.png'
 import fullScreen from './icon/fullscreen.svg'
-// import timaraCover from "./vid/timara-website-cover.webm";
+import timaraCover from './vid/timara-website-cover.webm'
 import unfoldingCover from './vid/unfolding-cover.webm'
 import timeRulerCover from './img/time-ruler-cover.webp'
 import particularitiesPlaceholder from './img/particularities_cover.png'
@@ -59,10 +59,10 @@ export const videos = {
   whatIveDoneCover,
   amCover,
   aMaxPatchIMadeIn2020Cover,
-  // mmgLogoCover,
+  mmgLogoCover,
   grantsVideoCover,
   particularitiesCover,
-  // timaraCover,
+  timaraCover,
   unfoldingCover,
 }
 

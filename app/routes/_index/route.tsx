@@ -1,23 +1,6 @@
 import type { V2_MetaFunction } from '@remix-run/node'
-import { Link, Outlet } from '@remix-run/react'
-import Section from '~/components/Section'
-import ViewButton from '~/components/ViewButton'
-import { images } from '../../assets/assets'
+import { Outlet } from '@remix-run/react'
 import DynamicSection from './DynamicSection'
-import Tag from '~/components/Tag'
-import { repulsion, useMatter } from '../../util/matter'
-import {
-  useAmmo,
-  useAnimationLoop,
-  useMousePosition,
-  useWindow,
-} from '~/util/hooks'
-import { Bodies, Body, Constraint, Vector } from 'matter-js'
-import invariant from 'tiny-invariant'
-import { useEffect, useMemo, useRef } from 'react'
-import Ammo from 'ammojs3'
-import { useAnimate, useAnimation } from 'framer-motion'
-import Header from '~/components/Header'
 
 export const meta: V2_MetaFunction = () => [{ title: 'Home' }]
 

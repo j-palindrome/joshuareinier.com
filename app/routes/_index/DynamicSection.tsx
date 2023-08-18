@@ -8,7 +8,7 @@ import {
   useTransform,
 } from 'framer-motion'
 import { Pt } from 'pts'
-import React, { forwardRef, useMemo, useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import invariant from 'tiny-invariant'
 import { useWindow } from '~/util/hooks'
 
@@ -43,7 +43,7 @@ export default function DynamicSection({
   )
 }
 
-DynamicSection.Child = function ({
+function Child({
   children,
   angle,
   progress,
@@ -85,3 +85,5 @@ DynamicSection.Child = function ({
     </motion.div>
   )
 }
+
+DynamicSection.Child = Child
