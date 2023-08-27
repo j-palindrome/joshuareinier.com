@@ -42,8 +42,8 @@ export default function Header() {
       const constraint = Constraint.create({
         pointA: Vector.create(midpoint[0], midpoint[1]),
         bodyB: body,
-        length: 200,
-        stiffness: 1e-5,
+        length: 0,
+        stiffness: 1e-6,
       })
       constraints.push(constraint)
     }
@@ -85,7 +85,7 @@ export default function Header() {
             repulsion(
               body.position,
               otherBody.position,
-              window.innerWidth / 2,
+              window.innerWidth / 4,
               1e-3
             )
           )
@@ -97,7 +97,7 @@ export default function Header() {
             body.position,
             Vector.create(...mousePosRef.current),
             window.innerWidth / 2,
-            1e-3 * -1
+            0.0005 * -1
           )
         )
 
@@ -110,7 +110,8 @@ export default function Header() {
       }
     },
     (_world, engine) => {
-      engine.gravity.y = -0.01
+      engine.gravity.x = 0
+      engine.gravity.y = 0
     }
   )
 

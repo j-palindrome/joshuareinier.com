@@ -20,7 +20,7 @@
   }
 
   .floater > .floater-overlay {
-    @apply relative max-h-full max-w-4xl cursor-default overflow-y-auto rounded-lg border border-gray-400 bg-black/20 backdrop-blur-lg;
+    @apply relative relative max-h-full max-w-4xl cursor-default overflow-y-auto rounded-lg border border-gray-400 bg-black/20 backdrop-blur-lg;
   }
 
   .title {

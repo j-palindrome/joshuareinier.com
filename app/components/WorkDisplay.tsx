@@ -9,16 +9,14 @@ export default function WorkDisplay({
 }) {
   return (
     <div className='floater'>
-      <Link
-        to={to}
-        className='absolute left-0 top-0 -z-10 h-full w-full'
-      ></Link>
-      <Link
-        to={to}
-        className='absolute right-0 top-0 m-2 rounded-lg bg-slate-700 p-2 font-mono'
+      <div
+        onClick={() => window.history.back()}
+        className='absolute left-0 top-0 -z-10 h-full w-full cursor-pointer'
       >
-        X
-      </Link>
+        <div className='absolute right-0 top-0 m-2 flex h-6 w-6 items-center justify-center rounded-lg bg-slate-700 font-mono'>
+          x
+        </div>
+      </div>
       <div className='floater-overlay'>
         <div className='relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden'>
           <div className='absolute left-0 top-0 -z-10 flex h-full w-full flex-col items-center justify-center'>
