@@ -1,12 +1,4 @@
-import { Link } from '@remix-run/react'
-
-export default function WorkDisplay({
-  work,
-  to,
-}: {
-  work: Work<RoleType>
-  to: string
-}) {
+export default function WorkDisplay({ work }: { work: Work<RoleType> }) {
   return (
     <div className='floater'>
       <div

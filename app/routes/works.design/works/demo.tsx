@@ -1,4 +1,3 @@
-import svg from '../assets/work-1.svg'
 import parse from 'style-to-object'
 
 export default function Demo() {
