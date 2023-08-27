@@ -22,9 +22,12 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
 
   const frame = useRef<HTMLDivElement>(null)
 
-  const itemWidth = 150
+  const itemWidth = 300
   const margin = 24
   const [width, setWidth] = useState(0)
+  const isTrapezoidal =
+    works.length >= width * 2 ||
+    (works.length > width && works.length % width === 0)
 
   useEffect(() => {
     const computeResize = () => {
@@ -50,6 +53,7 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
   const [springs] = useSprings(
     works.length,
     (i) => {
+      if (work) return {}
       const position = document
         .querySelector(`[data-spring=${works[i].route}]`)
         ?.getBoundingClientRect()
@@ -60,10 +64,12 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
         Vector.create(...mousePosition)
       )
 
+      let rowNumber = Math.floor(i / width)
+
       return {
         from: Vector.create(0, 0),
         to: Vector.add(
-          Vector.create(0, i % 2 ? itemWidth / 4 : -itemWidth / 4),
+          Vector.create(rowNumber % 2 ? itemWidth / 4 : -itemWidth / 4, 0),
           Vector.mult(
             Vector.normalise(toMouse),
             lerp(20, 0, Vector.magnitude(toMouse) / w, { clamp: true })
@@ -81,17 +87,20 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
 
   const lastScroll = useRef<number>(0)
   useEffect(() => {
-    window.scrollTo({ top: lastScroll.current })
+    if (!work) window.scrollTo({ top: lastScroll.current })
   }, [work])
 
   return (
-    <div className='w-full'>
+    !work && (
       <div
-        className='flex w-full overflow-y-auto'
-        style={{ height: itemWidth * 3, marginBlock: -itemWidth / 2 }}
+        className='w-full'
+        style={{ marginLeft: isTrapezoidal ? 0 : itemWidth / 4 }}
       >
         <div
-          className={`mx-auto flex grow items-center justify-around`}
+          className={`mx-auto grid w-fit max-w-[1000px]`}
+          style={{
+            gridTemplateColumns: `repeat(${width}, minmax(0, 1fr))`,
+          }}
           ref={frame}
         >
           {works.map(({ title, subtitle, route, background }, i) => {
@@ -103,7 +112,8 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
                 style={{
                   left: springs[i].x,
                   top: springs[i].y,
-                  width: work === route ? itemWidth * 2 : itemWidth,
+                  width: itemWidth,
+                  margin: `${margin / 2}px ${margin}px`,
                 }}
               >
                 <Link
@@ -129,6 +139,6 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
           })}
         </div>
       </div>
-    </div>
+    )
   )
 }
