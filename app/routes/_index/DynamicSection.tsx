@@ -2,7 +2,6 @@ import {
   MotionProps,
   MotionValue,
   motion,
-  useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
@@ -68,9 +67,6 @@ function Child({
     progress,
     [0, 1],
     [`${startLocation.x}px ${startLocation.y}px`, `0px 0px`]
-  )
-  useMotionValueEvent(translate, 'change', (latest) =>
-    console.log(latest, children)
   )
 
   return (

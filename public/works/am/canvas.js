@@ -3,7 +3,6 @@ function setup() {
   canvas.style('position', 'fixed')
   canvas.style('z-index', '-1')
   frameRate(10)
-  console.log(probabilityEQ(50, 5, 10))
 }
 
 function draw() {
@@ -37,10 +36,10 @@ const probabilityEQ = (point, reduction, spread, exponent = 1) => {
   return bins
 }
 
-const randomFourier = bins => {
+const randomFourier = (bins) => {
   // this is a Fourier normalization based on an array of numbers, which is the chance of returning something in that range
   const total = bins.reduce((total, next) => total + next)
-  bins = bins.map(x => x / total) // normalize
+  bins = bins.map((x) => x / total) // normalize
   const random = Math.random()
   let sum = 0
   for (let i = 0; i < bins.length; i++) {
