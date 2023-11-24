@@ -1,161 +1,206 @@
-import { Link, useParams } from '@remix-run/react'
-import { Bodies, Constraint, Vector, Body } from 'matter-js'
-import { useMemo, useRef } from 'react'
-import invariant from 'tiny-invariant'
-import { useMousePosition, useWindow } from '~/util/hooks'
-import { repulsion, useMatter } from '~/util/matter'
+import { Link, useParams } from "@remix-run/react";
+import { Bodies, Constraint, Vector, Body } from "matter-js";
+import { useMemo, useRef } from "react";
+import invariant from "tiny-invariant";
+import { useFlicker } from "~/routes/works.zettelkablooey.$/services/animation";
+import { useMousePosition, useWindow } from "~/util/hooks";
+import { repulsion, useMatter } from "~/util/matter";
 
+const STRENGTH = 0.001;
 export default function Header() {
-  const window = useWindow()
-  const { role } = useParams()
-  const fullHeight = !role
+  const window = useWindow();
+  const { role } = useParams();
+  const fullHeight = !role;
 
-  const mousePosRef = useRef<[number, number]>([0, 0])
-  const [x, y] = useMousePosition()
-  mousePosRef.current = [x, y]
+  const mousePosRef = useMousePosition();
 
-  const height = fullHeight ? window?.innerHeight ?? 0 : 200
+  const height = fullHeight ? window?.innerHeight ?? 0 : 200;
 
-  const bodies = useMemo(() => {
-    if (!window) return []
-    const midpoint: [number, number] = [window.innerWidth / 2, height]
-    const props: Partial<Matter.Body> = {
+  const { bodies, constraints } = useMemo(() => {
+    if (!window) return { bodies: [], constraints: [] };
+    const props: Matter.IBodyDefinition = {
       inertia: 300,
-    }
+    };
     const bodies: Matter.Body[] = [
-      Bodies.circle(window.innerWidth / 2, height / 2, 50, {
-        label: 'artist',
+      Bodies.circle(window.innerWidth * 0.5, height * 0.33, 50, {
+        label: "ball-artist",
         ...props,
       }),
-      Bodies.circle(window.innerWidth / 2, height / 2, 50, {
-        label: 'researcher',
+      Bodies.circle(window.innerWidth * 0.33, height * 0.66, 50, {
+        label: "ball-researcher",
         ...props,
       }),
-      Bodies.circle(window.innerWidth / 2, height / 2, 50, {
-        label: 'designer',
+      Bodies.circle(window.innerWidth * 0.66, height * 0.66, 50, {
+        label: "ball-designer",
         ...props,
       }),
-    ]
-    const constraints: Matter.Constraint[] = []
+    ];
 
-    for (let body of bodies) {
-      const constraint = Constraint.create({
-        pointA: Vector.create(midpoint[0], midpoint[1]),
-        bodyB: body,
-        length: 0,
-        stiffness: 1e-6,
-      })
-      constraints.push(constraint)
-    }
+    const midpoint = Vector.create(window.innerWidth / 2, height / 2);
+    const constraints = bodies
+      .map((body) =>
+        Constraint.create({
+          pointA: midpoint,
+          bodyB: body,
+          length: 0,
+          stiffness: STRENGTH * 0.02,
+          label: `midpoint-${body.label}`,
+        })
+      )
+      .concat(
+        bodies.flatMap((body) =>
+          bodies
+            .filter((otherBody) => otherBody !== body)
+            .map((otherBody) =>
+              Constraint.create({
+                bodyA: body,
+                bodyB: otherBody,
+                length: window.innerWidth / 4,
+                stiffness: STRENGTH * 0.05,
+                label: `repulsion-${body.label}-${otherBody.label}`,
+              })
+            )
+        )
+      );
 
     const walls = [
       Bodies.rectangle(window.innerWidth / 2, 0, window.innerWidth, 10, {
         isStatic: true,
+        label: "wall-1",
       }),
       Bodies.rectangle(0, height / 2, 10, height, {
         isStatic: true,
+        label: "wall-2",
       }),
       Bodies.rectangle(window.innerWidth / 2, height, window.innerWidth, 10, {
         isStatic: true,
+        label: "wall-3",
       }),
       Bodies.rectangle(window.innerWidth, height / 2, 10, height, {
         isStatic: true,
+        label: "wall-4",
       }),
-    ]
+    ];
 
-    bodies.push(...walls)
+    bodies.push(...walls);
 
-    return [...bodies, ...constraints]
-  }, [window, fullHeight])
+    return { bodies, constraints };
+  }, [window, fullHeight]);
 
-  const frame = useRef<HTMLDivElement>(null)
+  const frame = useRef<HTMLDivElement>(null);
 
   useMatter(
-    bodies,
-    (bodies) => {
-      if (!window) return
+    { bodies, constraints },
+    ({ bodies, constraints }) => {
+      if (!window) return;
 
-      for (let body of bodies) {
-        if (body.isStatic) continue
-        for (let otherBody of bodies) {
-          if (body === otherBody || body.isStatic) continue
-          Body.applyForce(
-            body,
-            body.position,
-            repulsion(
-              body.position,
-              otherBody.position,
-              window.innerWidth / 4,
-              1e-3
-            )
-          )
-        }
+      const mousePos = Vector.create(
+        mousePosRef.current.x,
+        mousePosRef.current.y
+      );
+      const balls = bodies.filter((body) => body.label.includes("ball"));
+      const midpoint = Vector.create(height / 2, window.innerWidth / 2);
+
+      const wall1 = bodies.find(
+        (body) => body.label === "wall-1"
+      ) as ReturnType<typeof Bodies.rectangle>;
+      const wall2 = bodies.find(
+        (body) => body.label === "wall-2"
+      ) as ReturnType<typeof Bodies.rectangle>;
+      const wall3 = bodies.find(
+        (body) => body.label === "wall-3"
+      ) as ReturnType<typeof Bodies.rectangle>;
+      const wall4 = bodies.find(
+        (body) => body.label === "wall-4"
+      ) as ReturnType<typeof Bodies.rectangle>;
+
+      invariant(wall1 && wall2 && wall3 && wall4);
+      wall1.position.x = window.innerWidth / 2;
+      wall2.position.y = height / 2;
+      wall3.position.x = window.innerWidth / 2;
+      wall3.position.y = height;
+      wall4.position.x = window.innerWidth;
+      wall4.position.y = height / 2;
+
+      for (let constraint of constraints.filter((constraint) =>
+        constraint.label.includes("midpoint")
+      )) {
+        constraint.pointA.x = midpoint.x;
+        constraint.pointA.y = midpoint.y;
+      }
+      for (let constraint of constraints.filter((constraint) =>
+        constraint.label.includes("repulsion")
+      )) {
+        constraint.length = window.innerWidth / 3;
+      }
+
+      for (let body of balls) {
         Body.applyForce(
           body,
           body.position,
-          repulsion(
-            body.position,
-            Vector.create(...mousePosRef.current),
-            window.innerWidth / 2,
-            0.0005 * -1
-          )
-        )
+          repulsion(body.position, mousePos, window.innerWidth, STRENGTH * -1)
+        );
 
-        const el = document.getElementById(`${body.label}`)
-        invariant(el)
+        const el = document.getElementById(body.label);
+        invariant(el);
         el.style.setProperty(
-          'translate',
+          "translate",
           `${body.position.x}px ${body.position.y}px`
-        )
+        );
       }
     },
     (_world, engine) => {
-      engine.gravity.x = 0
-      engine.gravity.y = 0
+      engine.gravity.x = 0;
+      engine.gravity.y = 0;
     }
-  )
+  );
 
   const bodyClass = (thisRole: RoleType) =>
     `absolute flex ${
       fullHeight
-        ? 'h-[400px] w-[400px]'
+        ? "h-[400px] w-[400px]"
         : thisRole === role
-        ? 'h-[200px] w-[200px]'
-        : 'h-[100px] w-[100px]'
-    } transition-[height,width] duration-500 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-slate-700/20 hover:z-10`
+        ? "h-[200px] w-[200px]"
+        : "h-[100px] w-[100px]"
+    } transition-[height,width,background-color] duration-500 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-slate-700/20 z-0 hover:z-10 hover:bg-selection/50`;
+
   return (
     <div
       className={`${
-        fullHeight ? 'h-screen' : 'h-[200px]'
+        fullHeight ? "h-screen" : "h-[200px]"
       } relative w-screen transition-[height] duration-300`}
       ref={frame}
     >
       {fullHeight && (
         <Link
-          to='#artist-statement'
-          className='button absolute bottom-0 right-0'
+          to="#artist-statement"
+          className="button absolute bottom-0 right-0"
         >
           Artist Statement
         </Link>
       )}
-      <Link to='about' className='button absolute left-0 top-0'>
+      <Link to="about" className="button absolute left-0 top-0">
         about
       </Link>
-      <Link to='artist' className={bodyClass('artist')} id='artist'>
+      <Link to="artist" className={bodyClass("artist")} id="ball-artist">
         artist
       </Link>
-      <Link to='researcher' className={bodyClass('researcher')} id='researcher'>
+      <Link
+        to="researcher"
+        className={bodyClass("researcher")}
+        id="ball-researcher"
+      >
         researcher
       </Link>
-      <Link to='designer' className={bodyClass('designer')} id='designer'>
+      <Link to="designer" className={bodyClass("designer")} id="ball-designer">
         designer
       </Link>
       <Link
-        to='/'
-        className='absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-2xl font-bold'
+        to="/"
+        className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-2xl font-bold"
       >
         Joshua Tazman Reinier
       </Link>
     </div>
-  )
+  );
 }

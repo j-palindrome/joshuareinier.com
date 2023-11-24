@@ -32,9 +32,7 @@ export const generatePrompt = async (
   //         ...config,
   //       })
   //     ).data.choices[0].message?.content ?? ''
-
   //   if (response) writeResponse(prompt, response)
-
   //   return response
   // }
   // const response = newResponse()
@@ -58,7 +56,7 @@ export const generatePrompt = async (
   //   )
   // ).data
 
-  // // @ts-ignore
+  // @ts-ignore
   // data.on('data', (data: Buffer) => {
   //   try {
   //     if (data.includes('[DONE]')) return
@@ -74,4 +72,5 @@ export const generatePrompt = async (
   //   }
   // })
 }
+
 /* eslint-enable */
