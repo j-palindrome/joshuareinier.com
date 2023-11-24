@@ -1,54 +1,54 @@
-import _ from 'lodash'
-import { Fragment, Suspense, cloneElement, useMemo } from 'react'
-import { useDimensions } from '../services/dom.client'
-import MorphSpan from './MorphSpan'
-import MyLink from './MyLink'
+import _ from "lodash";
+import { Fragment, Suspense, cloneElement, useMemo } from "react";
+import MorphSpan from "./MorphSpan";
+import MyLink from "./MyLink";
+import { useDimensions } from "~/util/hooks";
 
 export default function GptMesh(props: Parameters<typeof ClientGptMesh>[0]) {
   return (
     <Suspense fallback={<></>}>
       <ClientGptMesh {...props} />
     </Suspense>
-  )
+  );
 }
 
 function ClientGptMesh({
   children,
   gptText,
 }: {
-  children: JSX.Element[]
-  gptText: string
+  children: JSX.Element[];
+  gptText: string;
 }) {
-  const { w, h } = useDimensions()
+  const { w, h } = useDimensions();
   /**
    * @description Splits up the text based on random locations, making room for each of the children.
    */
   const formattedGptText = useMemo(() => {
-    if (!gptText) return undefined
-    const area = (w / 8) * (h / 24)
-    let fullLengthText = gptText
-    while (fullLengthText.length < area) fullLengthText += fullLengthText
-    const slicedGptText = fullLengthText.slice(0, area)
+    if (!gptText) return undefined;
+    const area = (w / 8) * (h / 24);
+    let fullLengthText = gptText;
+    while (fullLengthText.length < area) fullLengthText += fullLengthText;
+    const slicedGptText = fullLengthText.slice(0, area);
 
-    const splitGptText = slicedGptText.split(' ')
+    const splitGptText = slicedGptText.split(" ");
     const splits: number[] = children
       .map(() => _.random(splitGptText.length, false))
-      .sort()
+      .sort();
 
-    let currentSplit = 0
-    const formattedGptText = []
+    let currentSplit = 0;
+    const formattedGptText = [];
     for (let split of splits) {
-      formattedGptText.push(splitGptText.slice(currentSplit, split).join(' '))
-      currentSplit = split
+      formattedGptText.push(splitGptText.slice(currentSplit, split).join(" "));
+      currentSplit = split;
     }
-    formattedGptText.push(splitGptText.slice(currentSplit).join(' '))
+    formattedGptText.push(splitGptText.slice(currentSplit).join(" "));
 
-    return formattedGptText
-  }, [gptText, children])
+    return formattedGptText;
+  }, [gptText, children]);
 
-  if (!formattedGptText) return <></>
+  if (!formattedGptText) return <></>;
   return (
-    <div className='h-full w-full overflow-hidden'>
+    <div className="h-full w-full overflow-hidden">
       {/* <Stage
         className='absolute left-0 top-0 z-0 bg-transparent'
         width={w}
@@ -75,25 +75,25 @@ function ClientGptMesh({
         />
       </Stage> */}
       {children.map((child, i) => {
-        const splitChildren = child.props.children.split(' ')
-        const link = _.random(splitChildren.length)
+        const splitChildren = child.props.children.split(" ");
+        const link = _.random(splitChildren.length);
         const newLink = (
-          <MyLink to={'/demos/zettelkablooey/'}>{splitChildren[link]}</MyLink>
-        )
+          <MyLink to={"/demos/zettelkablooey/"}>{splitChildren[link]}</MyLink>
+        );
         return (
           <Fragment key={i}>
             <MorphSpan>{formattedGptText[i]}</MorphSpan>
             {cloneElement(child, {
               children: [
-                <span>{splitChildren.slice(0, link).join(' ') + ' '}</span>,
+                <span>{splitChildren.slice(0, link).join(" ") + " "}</span>,
                 newLink,
-                <span>{' ' + splitChildren.slice(link + 1).join(' ')}</span>,
+                <span>{" " + splitChildren.slice(link + 1).join(" ")}</span>,
               ],
             })}
           </Fragment>
-        )
+        );
       })}
       <MorphSpan>{formattedGptText[formattedGptText.length - 1]}</MorphSpan>
     </div>
-  )
+  );
 }

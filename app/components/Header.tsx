@@ -2,7 +2,6 @@ import { Link, useParams } from "@remix-run/react";
 import { Bodies, Constraint, Vector, Body } from "matter-js";
 import { useMemo, useRef } from "react";
 import invariant from "tiny-invariant";
-import { useFlicker } from "~/routes/works.zettelkablooey.$/services/animation";
 import { useMousePosition, useWindow } from "~/util/hooks";
 import { repulsion, useMatter } from "~/util/matter";
 

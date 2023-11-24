@@ -30,6 +30,7 @@ export const useDimensions = () => {
 };
 
 export const useMousePosition = () => {
+  // @eslint-ignore
   const [_mousePos, setMousePos, mousePosRef] = useStateRef<{
     x: number;
     y: number;
