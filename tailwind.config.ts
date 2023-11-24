@@ -14,7 +14,7 @@ export default {
       },
       fontFamily: {
         menu: "Dosis",
-        serif: "Cormorant Garamond",
+        serif: "Cormorant Infant",
         sans: "Lato",
       },
       dropShadow: {
