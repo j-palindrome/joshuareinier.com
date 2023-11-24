@@ -8,7 +8,7 @@ import {
   ScrollRestoration,
   useLocation,
 } from "@remix-run/react";
-import stylesheet from "~/tailwind.css";
+import stylesheet from "~/styles.css";
 import Header from "./components/Header";
 
 export const links: LinksFunction = () => [
@@ -29,8 +29,13 @@ export default function App() {
       </head>
       <body className={`min-h-screen font-sans text-white`}>
         <div className="fixed left-0 top-0 -z-10 h-screen w-screen bg-gradient-to-br from-black to-gray-800"></div>
-        {rootPaths.test(location.pathname) && <Header />}
-        <Outlet />
+        <div
+          className="fixed left-0 top-0 h-screen w-screen overflow-y-auto overflow-x-hidden"
+          id="container"
+        >
+          {rootPaths.test(location.pathname) && <Header />}
+          <Outlet />
+        </div>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

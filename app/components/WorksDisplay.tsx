@@ -24,31 +24,25 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
 
   const itemWidth = 300;
   const margin = 24;
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(1);
   const isTrapezoidal =
     works.length >= width * 2 ||
     (works.length > width && works.length % width === 0);
 
-  useEffect(() => {
-    const computeResize = () => {
-      const newWidth = Math.min(
-        works.length,
-        Math.floor(
-          Math.min(window.innerWidth - itemWidth, 1000) / (itemWidth + margin)
-        )
-      );
-      if (width !== newWidth) setWidth(newWidth);
-    };
-
-    window.addEventListener("resize", computeResize);
-    computeResize();
-    return () => {
-      window.removeEventListener("resize", computeResize);
-    };
-  }, [works]);
-
   const mousePosition = useMousePosition();
   const { w } = useDimensions();
+  useEffect(() => {
+    const newWidth = Math.max(
+      Math.min(
+        works.length,
+        Math.floor(Math.min(w - itemWidth, 1000) / (itemWidth + margin))
+      ),
+      1
+    );
+    if (width !== newWidth) setWidth(newWidth);
+  }, [w, works]);
+
+  const skewAmount = w < 640 ? 32 : itemWidth / 4;
 
   const [springs] = useSprings(
     works.length,
@@ -69,7 +63,7 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
       return {
         from: Vector.create(0, 0),
         to: Vector.add(
-          Vector.create(rowNumber % 2 ? itemWidth / 4 : -itemWidth / 4, 0),
+          Vector.create(rowNumber % 2 ? skewAmount : -skewAmount, 0),
           Vector.mult(
             Vector.normalise(toMouse),
             lerp(20, 0, Vector.magnitude(toMouse) / w, { clamp: true })
@@ -82,7 +76,7 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
         },
       };
     },
-    [mousePosition.current]
+    [mousePosition.current, works]
   );
 
   const lastScroll = useRef<number>(0);

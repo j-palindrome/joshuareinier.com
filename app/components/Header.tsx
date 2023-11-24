@@ -12,7 +12,6 @@ export default function Header() {
   const fullHeight = !role;
 
   const mousePosRef = useMousePosition();
-
   const height = fullHeight ? window?.innerHeight ?? 0 : 200;
 
   const { bodies, constraints } = useMemo(() => {
@@ -21,15 +20,15 @@ export default function Header() {
       inertia: 300,
     };
     const bodies: Matter.Body[] = [
-      Bodies.circle(window.innerWidth * 0.5, height * 0.33, 50, {
+      Bodies.circle(window.innerWidth * 0.5, height * 0.25, 50, {
         label: "ball-artist",
         ...props,
       }),
-      Bodies.circle(window.innerWidth * 0.33, height * 0.66, 50, {
+      Bodies.circle(window.innerWidth * 0.33, height * 0.75, 50, {
         label: "ball-researcher",
         ...props,
       }),
-      Bodies.circle(window.innerWidth * 0.66, height * 0.66, 50, {
+      Bodies.circle(window.innerWidth * 0.66, height * 0.75, 50, {
         label: "ball-designer",
         ...props,
       }),
@@ -98,7 +97,7 @@ export default function Header() {
         mousePosRef.current.y
       );
       const balls = bodies.filter((body) => body.label.includes("ball"));
-      const midpoint = Vector.create(height / 2, window.innerWidth / 2);
+      const midpoint = Vector.create(window.innerWidth / 2, height / 2);
 
       const wall1 = bodies.find(
         (body) => body.label === "wall-1"
@@ -156,12 +155,8 @@ export default function Header() {
 
   const bodyClass = (thisRole: RoleType) =>
     `absolute flex ${
-      fullHeight
-        ? "h-[400px] w-[400px]"
-        : thisRole === role
-        ? "h-[200px] w-[200px]"
-        : "h-[100px] w-[100px]"
-    } transition-[height,width,background-color] duration-500 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-slate-700/20 z-0 hover:z-10 hover:bg-selection/50`;
+      fullHeight ? "w-[400px]" : thisRole === role ? "w-[200px]" : "w-[100px]"
+    } transition-[height,width,background-color] aspect-square max-w-[50vw] duration-500 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-slate-700/20 z-0 hover:z-10 hover:bg-selection/50 font-menu`;
 
   return (
     <div
@@ -196,7 +191,7 @@ export default function Header() {
       </Link>
       <Link
         to="/"
-        className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-2xl font-bold"
+        className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 whitespace-pre font-serif text-2xl tracking-wide sm:text-4xl"
       >
         Joshua Tazman Reinier
       </Link>

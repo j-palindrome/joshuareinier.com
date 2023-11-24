@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,200;0,300;0,400;1,100;1,200;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Dosis:wght@300;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,500;1,300;1,500&family=Dosis:wght@300;500&family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply fixed left-0 top-0 h-screen w-screen overflow-y-auto overflow-x-hidden;
+  }
+
   p {
     @apply my-2 font-serif;
   }
@@ -16,11 +20,11 @@
   }
 
   .floater {
-    @apply fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black/50 p-8 backdrop-blur-sm;
+    @apply fixed left-0 top-0 z-30 h-screen w-screen overflow-auto bg-black/50 px-2 py-8 backdrop-blur-sm sm:flex sm:items-center sm:justify-center;
   }
 
   .floater > .floater-overlay {
-    @apply relative relative max-h-full max-w-4xl cursor-default overflow-y-auto rounded-lg border border-gray-400 bg-black/20 backdrop-blur-lg;
+    @apply relative max-w-4xl cursor-default rounded-lg border border-gray-400 bg-black/20 backdrop-blur-lg sm:max-h-full sm:overflow-y-auto;
   }
 
   .title {

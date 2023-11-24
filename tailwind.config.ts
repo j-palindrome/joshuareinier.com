@@ -15,7 +15,7 @@ export default {
       fontFamily: {
         menu: "Dosis",
         serif: "Cormorant Garamond",
-        sans: "Asap",
+        sans: "Lato",
       },
       dropShadow: {
         text: "0 0 6px rgb(0, 0, 0)",
