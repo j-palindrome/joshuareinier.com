@@ -1,41 +1,41 @@
-import PDF from '~/components/PDF'
-import { docs, images, videos } from '../assets/assets'
-import ViewButton from '~/components/ViewButton'
+import PDF from "~/components/PDF";
+import { docs, images, videos } from "../assets/assets";
+import ViewButton from "~/components/ViewButton";
 
 declare global {
-  type RoleType = 'artist' | 'researcher' | 'designer'
-  type RoleFilter<T extends RoleType> = T extends 'artist'
-    ? 'performance' | 'hypertext'
-    : T extends 'researcher'
-    ? 'teaching' | 'writing'
-    : T extends 'designer'
-    ? 'web' | 'multimedia'
-    : never
+  type RoleType = "artist" | "researcher" | "designer";
+  type RoleFilter<T extends RoleType> = T extends "artist"
+    ? "performance" | "hypertext"
+    : T extends "researcher"
+    ? "teaching" | "writing"
+    : T extends "designer"
+    ? "web" | "multimedia"
+    : never;
 
   type Work<T extends RoleType> = {
-    filter: RoleFilter<T>
-    title: string
-    subtitle: string
-    route: string
-    description: JSX.Element
-    content: JSX.Element
-    background: JSX.Element
-  }
+    filter: RoleFilter<T>;
+    title: string;
+    subtitle: string;
+    route: string;
+    description: JSX.Element;
+    content: JSX.Element;
+    background: JSX.Element;
+  };
 }
 
 export const works: { [T in RoleType]: Work<T>[] } = {
   artist: [
     {
-      title: 'Particularities',
-      route: 'particularities',
-      filter: 'performance',
-      subtitle: 'multimedia installation',
+      title: "Particularities",
+      route: "particularities",
+      filter: "performance",
+      subtitle: "multimedia installation",
       content: (
         <iframe
-          className='aspect-video w-full'
-          src='https://www.youtube.com/embed/seOUcmpeKhA'
-          title='Particularities'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+          className="aspect-video w-full"
+          src="https://www.youtube.com/embed/seOUcmpeKhA"
+          title="Particularities"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
       ),
@@ -64,10 +64,10 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       ),
     },
     {
-      title: 'Unfolding',
-      route: 'unfolding',
-      filter: 'performance',
-      subtitle: 'performer, machine-learning, & mylar',
+      title: "Unfolding",
+      route: "unfolding",
+      filter: "performance",
+      subtitle: "performer, machine-learning, & mylar",
       background: (
         <video
           src={videos.unfoldingCover}
@@ -76,10 +76,10 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       ),
       content: (
         <iframe
-          className='aspect-video w-full'
-          src='https://www.youtube.com/embed/mI9meISxHnQ'
-          title='Unfolding'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+          className="aspect-video w-full"
+          src="https://www.youtube.com/embed/mI9meISxHnQ"
+          title="Unfolding"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
       ),
@@ -101,21 +101,21 @@ export const works: { [T in RoleType]: Work<T>[] } = {
     },
     {
       title: "What I've Done",
-      route: 'what-ive-done',
-      filter: 'performance',
-      subtitle: 'jazz band & meta-monologue',
+      route: "what-ive-done",
+      filter: "performance",
+      subtitle: "jazz band & meta-monologue",
       content: (
         <>
           <iframe
-            width='100%'
-            className='aspect-video'
-            src='https://www.youtube.com/embed/lnE9lyYIAZg'
+            width="100%"
+            className="aspect-video"
+            src="https://www.youtube.com/embed/lnE9lyYIAZg"
             title="What I've Done"
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
-          <div className='px-8'>
-            <PDF src='/assets/doc/what-ive-done.pdf'></PDF>
+          <div className="px-8">
+            <PDF src="/assets/doc/what-ive-done.pdf"></PDF>
           </div>
         </>
       ),
@@ -152,10 +152,10 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       ),
     },
     {
-      title: 'raining',
-      route: 'raining',
-      filter: 'hypertext',
-      subtitle: 'kinetic digital soundpoem',
+      title: "raining",
+      route: "raining",
+      filter: "hypertext",
+      subtitle: "kinetic digital soundpoem",
       description: (
         <p>
           <i>raining</i> is a kinetic digital poem in which fragments of words
@@ -165,7 +165,7 @@ export const works: { [T in RoleType]: Work<T>[] } = {
         </p>
       ),
       content: (
-        <ViewButton href='/works/raining/index.html'>view work</ViewButton>
+        <ViewButton href="/works/raining/index.html">view work</ViewButton>
       ),
       background: (
         <video
@@ -175,10 +175,10 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       ),
     },
     {
-      title: 'AM',
-      route: 'am',
-      filter: 'hypertext',
-      subtitle: 'juxtaposed sonic & written fragments',
+      title: "AM",
+      route: "am",
+      filter: "hypertext",
+      subtitle: "juxtaposed sonic & written fragments",
       description: (
         <p>
           <i>AM</i> juxtaposes text fragments with radio interference, creating
@@ -186,16 +186,16 @@ export const works: { [T in RoleType]: Work<T>[] } = {
           the boundary between sound and sense.
         </p>
       ),
-      content: <ViewButton href={'/works/am/index.html'}>view work</ViewButton>,
+      content: <ViewButton href={"/works/am/index.html"}>view work</ViewButton>,
       background: (
         <video src={videos.amCover} poster={images.amPlaceholder}></video>
       ),
     },
     {
-      title: 'a max patch i made in 2020',
-      route: 'a-max-patch',
-      filter: 'performance',
-      subtitle: 'for live-processed solo zoomer',
+      title: "a max patch i made in 2020",
+      route: "a-max-patch",
+      filter: "performance",
+      subtitle: "for live-processed solo zoomer",
       background: (
         <video
           src={videos.aMaxPatchIMadeIn2020Cover}
@@ -215,10 +215,10 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       ),
       content: (
         <iframe
-          className='aspect-video w-full'
-          src='https://www.youtube.com/embed/tmyQ_Gt34fY'
-          title='A Max Patch I made in 2020'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+          className="aspect-video w-full"
+          src="https://www.youtube.com/embed/tmyQ_Gt34fY"
+          title="A Max Patch I made in 2020"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
       ),
@@ -226,12 +226,12 @@ export const works: { [T in RoleType]: Work<T>[] } = {
   ],
   researcher: [
     {
-      title: 'Demons of Analogy',
-      route: 'demons-of-analogy',
-      filter: 'writing',
-      subtitle: 'The Encounter Between Music and Language After Mallarmé',
+      title: "Demons of Analogy",
+      route: "demons-of-analogy",
+      filter: "writing",
+      subtitle: "The Encounter Between Music and Language After Mallarmé",
       background: (
-        <img alt='demons of analogy' src={images.demonsOfAnalogyCover} />
+        <img alt="demons of analogy" src={images.demonsOfAnalogyCover} />
       ),
       description: (
         <p>
@@ -246,14 +246,14 @@ export const works: { [T in RoleType]: Work<T>[] } = {
           poetics can speak to poetic music, and how the two can merge.
         </p>
       ),
-      content: <PDF src='/assets/doc/demons-of-analogy.pdf' />,
+      content: <PDF src="/assets/doc/reinier_demons-of-analogy.pdf" />,
     },
     {
-      title: 'EarCo',
-      route: 'ear-co',
-      filter: 'teaching',
-      subtitle: 'Eavesdropping, Surveillance and the Poetics of Information',
-      background: <img alt='earCo' src={images.earCoCover} />,
+      title: "EarCo",
+      route: "ear-co",
+      filter: "teaching",
+      subtitle: "Eavesdropping, Surveillance and the Poetics of Information",
+      background: <img alt="earCo" src={images.earCoCover} />,
       description: (
         <p>
           The ownership of one's self and body in the present age is under
@@ -270,11 +270,11 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       content: <PDF src={docs.earCo} />,
     },
     {
-      title: 'CyborgCo',
-      route: 'cyborg-co',
-      filter: 'teaching',
-      subtitle: 'Posthumanism, Selves, & the Anthropocene',
-      background: <img alt='cyborgCo' src={images.cyborgCoCover} />,
+      title: "CyborgCo",
+      route: "cyborg-co",
+      filter: "teaching",
+      subtitle: "Posthumanism, Selves, & the Anthropocene",
+      background: <img alt="cyborgCo" src={images.cyborgCoCover} />,
       description: (
         <p>
           A human. A post. A duck-sized horse. Is this WestWorld? Maybe. In
@@ -298,12 +298,12 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       content: <PDF src={docs.cyborgCo} />,
     },
     {
-      title: 'Reclaiming Space',
-      route: 'reclaiming-space',
-      filter: 'writing',
-      subtitle: 'Feminist Psychosis in Cixous & Clément, Gilman, & Ferrante',
+      title: "Reclaiming Space",
+      route: "reclaiming-space",
+      filter: "writing",
+      subtitle: "Feminist Psychosis in Cixous & Clément, Gilman, & Ferrante",
       background: (
-        <img alt='reclaiming space' src={images.reclaimingSpaceCover} />
+        <img alt="reclaiming space" src={images.reclaimingSpaceCover} />
       ),
       description: (
         <p>
@@ -332,17 +332,17 @@ export const works: { [T in RoleType]: Work<T>[] } = {
         </p>
       ),
       content: (
-        <ViewButton href='https://mackseyjournal.scholasticahq.com/article/21771-reclaiming-space-feminist-hysteria-in-cixous-and-clement-gilman-and-ferrante'>
+        <ViewButton href="https://mackseyjournal.scholasticahq.com/article/21771-reclaiming-space-feminist-hysteria-in-cixous-and-clement-gilman-and-ferrante">
           read full article
         </ViewButton>
       ),
     },
     {
-      title: 'Finnegans Wake',
-      route: 'finnegans-wake',
-      filter: 'teaching',
-      subtitle: 'Reading Through the Wake',
-      background: <img alt='finnegans wake' src={images.finnegansWakeCover} />,
+      title: "Finnegans Wake",
+      route: "finnegans-wake",
+      filter: "teaching",
+      subtitle: "Reading Through the Wake",
+      background: <img alt="finnegans wake" src={images.finnegansWakeCover} />,
       description: (
         <p>
           This course is an intensive reading of James Joyce’s final novel
@@ -369,13 +369,13 @@ export const works: { [T in RoleType]: Work<T>[] } = {
   ],
   designer: [
     {
-      title: 'Time Ruler',
-      route: 'time-ruler',
-      filter: 'web',
-      subtitle: 'Task management and time-blocking for Obsidian',
-      background: <img alt='time ruler' src={images.timeRulerCover}></img>,
+      title: "Time Ruler",
+      route: "time-ruler",
+      filter: "web",
+      subtitle: "Task management and time-blocking for Obsidian",
+      background: <img alt="time ruler" src={images.timeRulerCover}></img>,
       content: (
-        <ViewButton href='https://github.com/joshuatazrein/obsidian-time-ruler'>
+        <ViewButton href="https://github.com/joshuatazrein/obsidian-time-ruler">
           view on GitHub
         </ViewButton>
       ),
@@ -390,10 +390,10 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       ),
     },
     {
-      title: 'Grants at Oberlin',
-      route: 'grants-at-oberlin',
-      filter: 'multimedia',
-      subtitle: 'After Effects animation',
+      title: "Grants at Oberlin",
+      route: "grants-at-oberlin",
+      filter: "multimedia",
+      subtitle: "After Effects animation",
       description: (
         <p>
           I crafted this animation for Oberlin Conservatory Office of
@@ -405,21 +405,21 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       ),
       content: (
         <iframe
-          width='100%'
-          className='aspect-video'
-          src='https://www.youtube.com/embed/reXPIl8gee8'
-          title='YouTube video player'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+          width="100%"
+          className="aspect-video"
+          src="https://www.youtube.com/embed/reXPIl8gee8"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
       ),
       background: <video src={videos.grantsVideoCover} />,
     },
     {
-      title: 'TIMARA History',
-      route: 'timara-history',
-      filter: 'web',
-      subtitle: 'Interactive animated timeline',
+      title: "TIMARA History",
+      route: "timara-history",
+      filter: "web",
+      subtitle: "Interactive animated timeline",
       background: (
         <video
           src={videos.timaraCover}
@@ -427,7 +427,7 @@ export const works: { [T in RoleType]: Work<T>[] } = {
         ></video>
       ),
       content: (
-        <ViewButton href='https://timara.oberlin.edu/history'>
+        <ViewButton href="https://timara.oberlin.edu/history">
           View website
         </ViewButton>
       ),
@@ -444,11 +444,11 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       ),
     },
     {
-      title: 'RiverBank',
-      route: 'riverbank',
-      filter: 'web',
-      subtitle: 'Google Tasks & Calendar',
-      background: <img alt='riverbank' src={images.riverbankCover} />,
+      title: "RiverBank",
+      route: "riverbank",
+      filter: "web",
+      subtitle: "Google Tasks & Calendar",
+      background: <img alt="riverbank" src={images.riverbankCover} />,
       description: (
         <p>
           RiverBank is a full-stack web application providing a better user
@@ -459,14 +459,14 @@ export const works: { [T in RoleType]: Work<T>[] } = {
           CSS, and Google Apis.
         </p>
       ),
-      content: <ViewButton href='https://riverbank.app/'>View app</ViewButton>,
+      content: <ViewButton href="https://riverbank.app/">View app</ViewButton>,
     },
     {
-      title: 'Notice',
-      route: 'notice',
-      filter: 'web',
-      subtitle: 'Notion Overviews',
-      background: <img alt='notice for notion' src={images.noticeCover} />,
+      title: "Notice",
+      route: "notice",
+      filter: "web",
+      subtitle: "Notion Overviews",
+      background: <img alt="notice for notion" src={images.noticeCover} />,
       description: (
         <p>
           Overviews of your Notion databases as tasks, flashcards, or graphs.
@@ -486,16 +486,16 @@ export const works: { [T in RoleType]: Work<T>[] } = {
         </p>
       ),
       content: (
-        <ViewButton href='https://chrome.google.com/webstore/detail/notice-notion-overviews/pjlnaeiildmajccjkdabbchcejpbbhah'>
+        <ViewButton href="https://chrome.google.com/webstore/detail/notice-notion-overviews/pjlnaeiildmajccjkdabbchcejpbbhah">
           View chrome extension
         </ViewButton>
       ),
     },
     {
-      title: 'MMG Logo',
-      route: 'mmg-logo',
-      filter: 'multimedia',
-      subtitle: 'Animated logo',
+      title: "MMG Logo",
+      route: "mmg-logo",
+      filter: "multimedia",
+      subtitle: "Animated logo",
       background: (
         <video src={videos.mmgLogoCover} poster={images.mmgLogoPlaceholder} />
       ),
@@ -510,10 +510,10 @@ export const works: { [T in RoleType]: Work<T>[] } = {
       ),
       content: (
         <iframe
-          src='/works/mmg-logo/index.html'
-          className='aspect-square w-full bg-white'
+          src="/works/mmg-logo/index.html"
+          className="aspect-square w-full bg-white"
         />
       ),
     },
   ],
-}
+};

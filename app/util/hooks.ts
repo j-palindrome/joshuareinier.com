@@ -35,15 +35,15 @@ export const useMousePosition = () => {
     y: number;
   }>({ x: 0, y: 0 });
   const ready = useRef(true);
+  const updateMousePos = (ev: MouseEvent) => {
+    if (!ready.current) return;
+    ready.current = false;
+    requestAnimationFrame(() => {
+      ready.current = true;
+    });
+    setMousePos({ x: ev.clientX, y: ev.clientY });
+  };
   useEffect(() => {
-    const updateMousePos = (ev: MouseEvent) => {
-      if (!ready.current) return;
-      ready.current = false;
-      requestAnimationFrame(() => {
-        ready.current = true;
-      });
-      setMousePos({ x: ev.clientX, y: ev.clientY });
-    };
     window.addEventListener("mousemove", updateMousePos);
     return () => window.removeEventListener("mousemove", updateMousePos);
   });

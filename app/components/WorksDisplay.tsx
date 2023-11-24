@@ -1,10 +1,10 @@
-import { animated, useSprings } from '@react-spring/web'
-import { Link, useParams, useSearchParams } from '@remix-run/react'
-import _ from 'lodash'
-import { Vector } from 'matter-js'
-import { cloneElement, useEffect, useRef, useState } from 'react'
-import { ClientOnly } from 'remix-utils'
-import { lerp, useDimensions, useMousePosition } from '~/util/hooks'
+import { animated, useSprings } from "@react-spring/web";
+import { Link, useParams, useSearchParams } from "@remix-run/react";
+import _ from "lodash";
+import { Vector } from "matter-js";
+import { cloneElement, useEffect, useRef, useState } from "react";
+import { ClientOnly } from "remix-utils";
+import { lerp, useDimensions, useMousePosition } from "~/util/hooks";
 
 export default function WorksDisplay(
   props: Parameters<typeof WorksDisplayClient>[0]
@@ -13,21 +13,21 @@ export default function WorksDisplay(
     <ClientOnly fallback={<></>}>
       {() => <WorksDisplayClient {...props} />}
     </ClientOnly>
-  )
+  );
 }
 
 function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
-  const [search] = useSearchParams()
-  const { work } = useParams()
+  const [search] = useSearchParams();
+  const { work } = useParams();
 
-  const frame = useRef<HTMLDivElement>(null)
+  const frame = useRef<HTMLDivElement>(null);
 
-  const itemWidth = 300
-  const margin = 24
-  const [width, setWidth] = useState(0)
+  const itemWidth = 300;
+  const margin = 24;
+  const [width, setWidth] = useState(0);
   const isTrapezoidal =
     works.length >= width * 2 ||
-    (works.length > width && works.length % width === 0)
+    (works.length > width && works.length % width === 0);
 
   useEffect(() => {
     const computeResize = () => {
@@ -36,35 +36,35 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
         Math.floor(
           Math.min(window.innerWidth - itemWidth, 1000) / (itemWidth + margin)
         )
-      )
-      if (width !== newWidth) setWidth(newWidth)
-    }
+      );
+      if (width !== newWidth) setWidth(newWidth);
+    };
 
-    window.addEventListener('resize', computeResize)
-    computeResize()
+    window.addEventListener("resize", computeResize);
+    computeResize();
     return () => {
-      window.removeEventListener('resize', computeResize)
-    }
-  }, [works])
+      window.removeEventListener("resize", computeResize);
+    };
+  }, [works]);
 
-  const mousePosition = useMousePosition()
-  const { w } = useDimensions()
+  const mousePosition = useMousePosition();
+  const { w } = useDimensions();
 
   const [springs] = useSprings(
     works.length,
     (i) => {
-      if (work) return {}
+      if (work) return {};
       const position = document
         .querySelector(`[data-spring=${works[i].route}]`)
-        ?.getBoundingClientRect()
-      if (!position) return {}
-      const positionVector = Vector.create(position.x, position.y)
+        ?.getBoundingClientRect();
+      if (!position) return {};
+      const positionVector = Vector.create(position.x, position.y);
       const toMouse = Vector.sub(
         positionVector,
-        Vector.create(...mousePosition)
-      )
+        Vector.create(mousePosition.current.x, mousePosition.current.y)
+      );
 
-      let rowNumber = Math.floor(i / width)
+      let rowNumber = Math.floor(i / width);
 
       return {
         from: Vector.create(0, 0),
@@ -80,20 +80,20 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
           friction: 10 * _.random(0.9, 1.1),
           tension: 250 * _.random(0.8, 1.2),
         },
-      }
+      };
     },
-    [mousePosition]
-  )
+    [mousePosition.current]
+  );
 
-  const lastScroll = useRef<number>(0)
+  const lastScroll = useRef<number>(0);
   useEffect(() => {
-    if (!work) window.scrollTo({ top: lastScroll.current })
-  }, [work])
+    if (!work) window.scrollTo({ top: lastScroll.current });
+  }, [work]);
 
   return (
     !work && (
       <div
-        className='w-full'
+        className="w-full"
         style={{ marginLeft: isTrapezoidal ? 0 : itemWidth / 4 }}
       >
         <div
@@ -117,14 +117,14 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
                 }}
               >
                 <Link
-                  className='relative z-10 flex h-full w-full flex-col items-center justify-center'
-                  to={route + (search ? '?' + search : search)}
+                  className="relative z-10 flex h-full w-full flex-col items-center justify-center"
+                  to={route + (search ? "?" + search : search)}
                   onMouseDown={() => {
-                    lastScroll.current = window.scrollY
+                    lastScroll.current = window.scrollY;
                   }}
                 >
-                  <div className='title text-xl'>{title}</div>
-                  <div className='subtitle text-sm'>{subtitle}</div>
+                  <div className="title text-xl">{title}</div>
+                  <div className="subtitle text-sm">{subtitle}</div>
                 </Link>
 
                 {cloneElement(background, {
@@ -132,13 +132,13 @@ function WorksDisplayClient({ works }: { works: Work<RoleType>[] }) {
                   muted: true,
                   loop: true,
                   className:
-                    'object-cover w-full h-full absolute top-0 left-0 rounded-full',
+                    "object-cover w-full h-full absolute top-0 left-0 rounded-full",
                 })}
               </animated.div>
-            )
+            );
           })}
         </div>
       </div>
     )
-  )
+  );
 }
