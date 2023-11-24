@@ -11,7 +11,7 @@ module.exports = {
     "cypress/globals": true,
   },
   rules: {
-    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": 1,
   },
   plugins: ["cypress"],
   // we're using vitest which has a very similar API to jest
