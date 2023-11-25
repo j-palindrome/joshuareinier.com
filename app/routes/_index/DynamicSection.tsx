@@ -18,15 +18,10 @@ export default function DynamicSection({
   children: ReturnType<typeof DynamicSection.Child>[];
 }) {
   const thisRef = useRef<HTMLDivElement>(null);
-  const container = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    container.current = document.getElementById("container") as HTMLDivElement;
-  }, []);
   const { scrollYProgress } = useScroll({
     target: thisRef,
     offset: ["start end", "end end"],
-    container,
   });
   const springProgress = useSpring(scrollYProgress, {
     stiffness: 500,
