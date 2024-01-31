@@ -4,6 +4,7 @@ node_modules
 /public/build
 .env
 
+/public/assets/vid
 /cypress/screenshots
 /cypress/videos
 /prisma/data.db
@@ -11,3 +12,4 @@ node_modules
 
 **/.DS_Store
 .DS_Store
+public/assets/vid/time-ruler.mov

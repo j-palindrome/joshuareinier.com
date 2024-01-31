@@ -27,11 +27,15 @@
   "dependencies": {
     "@pixi/react": "^7.1.0",
     "@prisma/client": "^4.15.0",
+    "@react-spring/three": "^9.7.3",
     "@react-spring/web": "^9.7.3",
+    "@react-three/drei": "^9.97.0",
+    "@react-three/fiber": "^8.15.15",
     "@remix-run/node": "latest",
     "@remix-run/react": "latest",
     "@remix-run/serve": "latest",
     "@types/d3": "^7.4.0",
+    "@types/three": "^0.160.0",
     "ammojs3": "^0.0.8",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
@@ -55,6 +59,7 @@
     "react-usestateref": "^1.0.8",
     "remix-utils": "^6.6.0",
     "style-to-object": "^0.4.2",
+    "three": "^0.160.1",
     "tiny-invariant": "^1.3.1",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.34.1"

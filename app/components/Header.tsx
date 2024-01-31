@@ -159,42 +159,32 @@ export default function Header() {
     } transition-[height,width,background-color] aspect-square max-w-[50vw] duration-500 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-slate-700/20 z-0 hover:z-10 hover:bg-selection/50 font-menu`;
 
   return (
-    <div
-      className={`${
-        fullHeight ? "h-screen" : "h-[200px]"
-      } relative w-screen transition-[height] duration-300`}
-      ref={frame}
-    >
-      {fullHeight && (
-        <Link
-          to="#artist-statement"
-          className="button absolute bottom-0 right-0"
-        >
-          Artist Statement
+    <>
+      <div className="h-12 w-full"></div>
+      <div
+        className={`${
+          fullHeight ? "h-screen" : "h-[200px]"
+        } relative w-screen transition-[height] duration-300`}
+        ref={frame}
+      >
+        <Link to="artist" className={bodyClass("artist")} id="ball-artist">
+          artist
         </Link>
-      )}
-      <Link to="about" className="button absolute left-0 top-0">
-        about
-      </Link>
-      <Link to="artist" className={bodyClass("artist")} id="ball-artist">
-        artist
-      </Link>
-      <Link
-        to="researcher"
-        className={bodyClass("researcher")}
-        id="ball-researcher"
-      >
-        researcher
-      </Link>
-      <Link to="designer" className={bodyClass("designer")} id="ball-designer">
-        designer
-      </Link>
-      <Link
-        to="/"
-        className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 whitespace-pre font-serif text-2xl tracking-wide sm:text-4xl"
-      >
-        Joshua Tazman Reinier
-      </Link>
-    </div>
+        <Link
+          to="researcher"
+          className={bodyClass("researcher")}
+          id="ball-researcher"
+        >
+          researcher
+        </Link>
+        <Link
+          to="designer"
+          className={bodyClass("designer")}
+          id="ball-designer"
+        >
+          designer
+        </Link>
+      </div>
+    </>
   );
 }

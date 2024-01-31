@@ -21,7 +21,7 @@ export default function WorkDisplay({ work }: { work: Work<RoleType> }) {
   return (
     <div className="floater" ref={frame}>
       <Link
-        to={`/${role}`}
+        to={`/portfolio/${role}`}
         className="absolute left-0 top-0 -z-10 h-full w-full cursor-pointer"
       >
         <div className="absolute right-0 top-0 m-2 flex h-6 w-6 items-center justify-center rounded-lg bg-slate-700 font-mono">
@@ -30,7 +30,7 @@ export default function WorkDisplay({ work }: { work: Work<RoleType> }) {
       </Link>
       <div className="flex grow items-center justify-center p-2">
         <Link
-          to={`/${role}/${
+          to={`/portfolio/${role}/${
             works[role][
               thisIndex === 0 ? works[role].length - 1 : thisIndex - 1
             ].route
@@ -61,7 +61,7 @@ export default function WorkDisplay({ work }: { work: Work<RoleType> }) {
       </div>
       <div className="flex grow items-center justify-center p-2">
         <Link
-          to={`/${role}/${
+          to={`/portfolio/${role}/${
             works[role][(thisIndex + 1) % works[role].length].route
           }`}
           className={`${link}`}
